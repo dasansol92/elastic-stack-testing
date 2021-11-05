@@ -43,16 +43,17 @@ public class UploadSecuritySolutionData extends DefaultTask {
 
         int majorVersion = api.setMajorVersion();
         if (majorVersion > 6) {
-
             createsSiemSignalsIndex(instance);
             createsDetectionRule(instance);
             createsAuditbeatIndex(instance);
             increasesNumberOfFieldsLimitForMapping(instance);
             createsAuditbeatMapping(instance);
             createsDocumentToGenerateAlert(instance);
+        }
+
+        if (majorVersion > 6) {
             addEndpointPolicy(instance);
             addTrustedApp(instance);
-
         }
     }
 
