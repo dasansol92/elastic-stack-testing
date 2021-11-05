@@ -51,7 +51,7 @@ public class UploadSecuritySolutionData extends DefaultTask {
             createsDocumentToGenerateAlert(instance);
         }
 
-        if (majorVersion > 6) {
+        if (majorVersion > 12) {
             addEndpointPolicy(instance);
             addTrustedApp(instance);
         }
