@@ -12,12 +12,16 @@ import java.util.Base64;
 import java.util.concurrent.Callable;
 import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
+import java.nio.charset.StandardCharsets;
+
 import static org.awaitility.Awaitility.await;
 
 public class BaseEndpoint {
 
     protected RestUtil utilLib;
     protected Instance instance;
+    private HttpResponse response;
     private final String endpointPath;
     private final HttpClient client;
 
@@ -33,14 +37,15 @@ public class BaseEndpoint {
         return "send the request";
     }
 
-    protected void sendRequest(HttpEntityEnclosingRequestBase request) throws IOException {
+    protected HttpResponse sendRequest(HttpEntityEnclosingRequestBase request) throws IOException {
         try {
              await().atMost(Duration.ofSeconds(25))
                     .pollInterval(Duration.ofSeconds(5))
                     .until(sendRequestCallable(request));
-        } catch(ConditionTimeoutException e ) {
-            throw new IOException("Failed " + getMessage());
-        }
+                } catch(ConditionTimeoutException e ) {
+                    System.out.println("Failed " + getMessage());
+                }
+                return this.response;
     }
 
     private Callable<Boolean> sendRequestCallable(HttpEntityEnclosingRequestBase request) {
@@ -48,8 +53,10 @@ public class BaseEndpoint {
             HttpResponse response = client.execute(request);
             int statusCode = response.getStatusLine().getStatusCode();
             if (statusCode == 200 || statusCode == 201) {
+                this.response = response;
                 return true;
             } else {
+                System.out.println(IOUtils.toString(response.getEntity().getContent(), StandardCharsets.UTF_8));
                 System.out.println("** Retrying " + getMessage() + " **");
                 return false;
             }

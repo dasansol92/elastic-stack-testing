@@ -1,0 +1,9 @@
+{
+    "name": "Agent policy from automation",
+    "description": "This is a policy created from the automation framework",
+    "namespace": "default",
+    "monitoring_enabled": [
+        "logs",
+        "metrics"
+    ]
+}

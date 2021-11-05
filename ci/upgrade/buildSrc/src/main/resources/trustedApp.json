@@ -1,0 +1,13 @@
+{
+    "name": "Trusted app from automation",
+    "os": "windows",
+    "entries": [
+        {
+            "field": "process.executable.caseless",
+            "operator": "included",
+            "type": "match",
+            "value": "testPath"
+        }
+    ],
+    "description": "Trusted app created from the automation framework"
+}

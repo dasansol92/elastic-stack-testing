@@ -1,0 +1,14 @@
+{
+    "name": "Endpoint integration",
+    "description": "Endpoint integration from automation framework",
+    "namespace": "default",
+    "policy_id": "TO BE OVERWRITTEN BY CODE",
+    "enabled": true,
+    "output_id": "",
+    "inputs": [],
+    "package": {
+        "name": "endpoint",
+        "title": "Endpoint Security",
+        "version": "0.18.0"
+    }
+}
